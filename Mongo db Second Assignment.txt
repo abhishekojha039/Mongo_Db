@@ -1,0 +1,29 @@
+Mongo db Second Assignment
+
+mongoimport --db population --collection zipcodes --file zips.json
+
+db.zipcodes.find({city:"ATLANTA",state:"GA"})
+
+db.zipcodes.aggregate([{$match:{city:"ATLANTA"},{state:"GA"}}])
+
+db.zipcodes.aggregate({$group:{count:{$sum:1}}})
+
+db.population.aggregate({$group:{sum:{$sum:0}}})
+
+db.population.aggregate({$sum:0},{$sort:{state:1}})
+
+db.population.aggregate({$sum:0},{$sort:{state:-1}})
+
+db.population.aggregate({$sum:0},{$sort:{state:-1}},{$limit:3})
+
+db.population.aggregate({{$sum:0},$group:{city:'$city',state:'$state'}})
+
+db.population.aggregate({{$sum:0},$group:{city:'$city',state:'$state'},{$sort:-1}})
+
+db.population.aggregate({{$sum:0},$group:{city:'$city',state:'$state'},{$sort:-1},{$limit:3}})
+
+db.population.aggregate({{city:"Texas"},{$sort:-1},{$limit:3}})
+
+db.population.aggregate({$group:{$avg:city},{$sort:state}})
+
+db.population.aggregate({$group:{$avg:city}},{$limit:3})
